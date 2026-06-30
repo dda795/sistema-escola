@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Abrir Chamado</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="layout">
+
+    <div class="menu">
+
+        <img src="/static/img/logo.jpeg" class="logo">
+
+        <h2>Escola Resolve</h2>
+
+        <p>Olá, {{session["nome"]}}</p>
+
+        <a href="/painel">
+            🏠 Início
+        </a>
+
+        <a href="/novo">
+            ➕ Novo chamado
+        </a>
+
+        <a href="/sair">
+            🚪 Sair
+        </a>
+
+    </div>
+
+    <div class="conteudo">
+
+        <div class="form-box">
+
+            <h1>📨 Abrir Novo Chamado</h1>
+
+            <p>
+                Descreva o problema encontrado para que a direção possa analisar.
+            </p>
+
+            <form action="/criar" method="POST">
+
+                <label>Título</label>
+
+                <input
+                    type="text"
+                    name="titulo"
+                    placeholder="Ex: Ventilador quebrado"
+                    required>
+
+                <label>Categoria</label>
+
+                <select name="categoria">
+
+                    <option>Infraestrutura</option>
+
+                    <option>Internet</option>
+
+                    <option>Computador</option>
+
+                    <option>Limpeza</option>
+
+                    <option>Outro</option>
+
+                </select>
+
+                <label>Descrição</label>
+
+                <textarea
+                    name="descricao"
+                    rows="6"
+                    placeholder="Descreva o problema..."
+                    required></textarea>
+
+                <button type="submit">
+
+                    🚀 Enviar Chamado
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

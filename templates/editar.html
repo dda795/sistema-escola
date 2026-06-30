@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Chamado</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="form-box">
+
+<h2>Editar Chamado</h2>
+
+<form action="/atualizar/{{chamado.id}}" method="POST">
+
+    <input type="text"
+           name="titulo"
+           value="{{chamado.titulo}}">
+
+    <textarea name="descricao">{{chamado.descricao}}</textarea>
+
+    <input type="text"
+           name="categoria"
+           value="{{chamado.categoria}}">
+
+
+           <label>Resposta da Direção</label>
+
+<textarea name="resposta" rows="5">
+
+{{chamado.resposta}}
+
+</textarea>
+    <button type="submit">
+        Salvar Alterações
+    </button>
+
+</form>
+
+</div>
+<label>Resposta da Direção</label>
+
+<textarea name="resposta" rows="5">
+{{chamado.resposta}}
+</textarea>
+</body>
+</html>

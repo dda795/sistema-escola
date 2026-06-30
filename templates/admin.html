@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Painel Direção</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="layout">
+
+    <div class="menu">
+
+        <img src="/static/img/logo.jpeg" class="logo">
+
+        <h2>Escola Resolve</h2>
+
+        <p>Olá, {{session["nome"]}}</p>
+
+        <p>Sistema de chamados</p>
+
+        <a href="/admin">
+🏠 Início
+</a>
+
+<a href="/sair">
+🚪 Sair
+</a>
+
+    </div>
+
+
+
+    <div class="conteudo">
+
+        <h1>Bem-vindo, {{session["nome"]}}</h1>
+
+        <p>Painel Administrativo da Escola</p>
+
+        <br>
+
+        <h2>📊 Resumo dos Chamados</h2>
+
+        <div class="filtros">
+
+            <a href="/admin">Todos</a>
+
+            <a href="/admin?status=Pendente">Pendentes</a>
+
+            <a href="/admin?status=Resolvido">Resolvidos</a>
+
+        </div>
+
+
+        <div class="cards">
+
+            <div class="card">
+
+                <h3>Total</h3>
+
+                <h1>{{total}}</h1>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Pendentes</h3>
+
+                <h1>{{pendentes}}</h1>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Resolvidos</h3>
+
+                <h1>{{resolvidos}}</h1>
+
+            </div>
+
+        </div>
+
+
+        <div class="grafico-box">
+
+            <h2>📊 Chamados por Categoria</h2>
+
+            <canvas id="graficoCategoria" width="300" height="300"></canvas>
+
+        </div>
+
+
+        <table>
+
+            <tr>
+
+                <th>Aluno</th>
+
+                <th>Data</th>
+
+                <th>Problema</th>
+
+                <th>Categoria</th>
+
+                <th>Status</th>
+
+                <th>Ação</th>
+
+            </tr>
+
+            {% for c in chamados %}
+
+            <tr>
+
+                <td>{{c.nome}}</td>
+
+                <td>{{c.data_chamado}}</td>
+
+                <td>
+
+                    <strong>{{c.titulo}}</strong>
+
+                    <br>
+
+                    {{c.descricao}}
+
+                </td>
+
+                <td>{{c.categoria}}</td>
+
+                <td>
+
+                    {% if c.status == "Pendente" %}
+
+                    <span class="pendente">
+
+                        {{c.status}}
+
+                    </span>
+
+                    {% else %}
+
+                    <span class="resolvido">
+
+                        {{c.status}}
+
+                    </span>
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    <a class="resolver"
+                       href="/resolver/{{c.id}}">
+                       Resolver
+                    </a>
+
+                    <a class="editar"
+                       href="/editar/{{c.id}}">
+                       Editar
+                    </a>
+
+                    <a class="excluir"
+href="/excluir/{{c.id}}"
+onclick="return confirm('Deseja realmente excluir este chamado?')">
+Excluir
+</a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+new Chart(
+
+document.getElementById('graficoCategoria'),
+
+{
+
+type:'pie',
+
+data:{
+
+labels:['Internet','Computador','Infraestrutura'],
+
+datasets:[{
+
+data:[5,3,2]
+
+}]
+
+}
+
+}
+
+);
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Painel do Aluno</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- MENU -->
+    <div class="menu">
+
+        <img src="/static/img/logo.jpeg" class="logo">
+
+        <h2>Escola Resolve</h2>
+
+        <p>Olá, {{ session["nome"] }}</p>
+
+        <p>🏫 Turma: {{ session["turma"] }}</p>
+
+        <a href="/painel">🏠 Início</a>
+
+        <a href="/novo">➕ Novo chamado</a>
+
+        <a href="/sair">🚪 Sair</a>
+
+    </div>
+
+    <!-- CONTEÚDO -->
+    <div class="conteudo">
+
+        <div class="banner">
+            <h1>Bem-vindo, {{ session["nome"] }} 👋</h1>
+
+            <p>
+                Acompanhe seus chamados e solicite suporte para problemas da escola.
+            </p>
+        </div>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>📋 Total de Chamados</h3>
+                <h1>{{ chamados|length }}</h1>
+            </div>
+
+            <div class="card">
+                <h3>🎓 Turma</h3>
+                <h1>{{ session["turma"] }}</h1>
+            </div>
+
+            <div class="card">
+                <h3>👨‍🎓 Aluno</h3>
+                <h1>{{ session["nome"] }}</h1>
+            </div>
+
+        </div>
+
+        <a class="novo" href="/novo">
+            ➕ Abrir Novo Chamado
+        </a>
+
+        <h2 style="margin-top:30px;">
+            📨 Histórico de Chamados
+        </h2>
+
+        <table>
+
+            <tr>
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>Categoria</th>
+                <th>Status</th>
+            </tr>
+
+            {% for c in chamados %}
+
+            <tr>
+
+                <td>{{ c.titulo }}</td>
+
+                <td>{{ c.descricao }}</td>
+
+                <td>{{ c.categoria }}</td>
+
+                <td>
+
+                    {% if c.status == "Pendente" %}
+
+                        <span class="pendente">{{ c.status }}</span>
+
+                    {% elif c.status == "Em análise" %}
+
+                        <span class="editar">{{ c.status }}</span>
+
+                    {% else %}
+
+                        <span class="resolvido">{{ c.status }}</span>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% if c.resposta %}
+
+            <tr>
+
+                <td colspan="4" style="background:#f5f5f5; padding:10px;">
+
+                    <strong>📩 Resposta da Direção:</strong><br>
+
+                    {{ c.resposta }}
+
+                </td>
+
+            </tr>
+
+            {% endif %}
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
